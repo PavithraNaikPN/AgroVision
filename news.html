@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌿 AgroVision · News Bulletin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <i class="fas fa-leaf"></i>
+          <span>AgroVision</span>
+        </a>
+      </div>
+      
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav-home">Home</a>
+        <a href="predict.html" data-i18n="nav-predict">Predict Disease</a>
+        <a href="chat.html" data-i18n="nav-chat">Chat</a>
+        <a href="news.html" data-i18n="nav-news">News Bulletin</a>
+        <a href="gallery.html" data-i18n="nav-gallery">Gallery</a>
+        <a href="about.html" data-i18n="nav-about">About</a>
+        <a href="contact.html" data-i18n="nav-contact">Contact</a>
+        <div class="lang-switch">
+          <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">English</button>
+          <button class="lang-btn" id="lang-kn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+        </div>
+        <div class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1><i class="fas fa-newspaper" style="color: var(--icon-color);"></i> Daily Disease Bulletin</h1>
+      <p>Latest updates on plant disease outbreaks and alerts</p>
+    </div>
+
+    <!-- News Bulletin Content -->
+    <div class="news-bulletin-container">
+      <div class="news-date">
+        <i class="far fa-calendar-alt"></i> May 13, 2026 · Updated daily
+      </div>
+
+      <div class="news-item">
+        <div class="news-title">🌾 Wheat Rust (Puccinia striiformis) Alert - Punjab region</div>
+        <div class="news-source"><i class="fas fa-rss"></i> Plant Pathology Today · 2 hours ago</div>
+        <p style="margin-top: 8px; color: #2b4f2b;">Yellow rust detected in northern districts. Immediate fungicide advised for susceptible varieties. Farmers advised to monitor fields closely and apply protective fungicides.</p>
+        <a href="chat.html?message=Wheat%20Rust%20(Puccinia%20striiformis)%20Alert%20-%20Punjab%20region" class="ask-chatbot-btn"><i class="fas fa-robot"></i> Ask Chatbot</a>
+      </div>
+
+      <div class="news-item">
+        <div class="news-title">🍅 Late Blight (Phytophthora infestans) - Tomato growers advisory</div>
+        <div class="news-source"><i class="fas fa-rss"></i> Crop Protection Network · 5 hours ago</div>
+        <p style="margin-top: 8px; color: #2b4f2b;">Cool, wet conditions favor rapid spread. Scout fields and apply protective measures. Consider preventive fungicide applications in high-risk areas.</p>
+        <a href="chat.html?message=Late%20Blight%20(Phytophthora%20infestans)%20-%20Tomato%20growers%20advisory" class="ask-chatbot-btn"><i class="fas fa-robot"></i> Ask Chatbot</a>
+      </div>
+
+      <div class="news-item">
+        <div class="news-title">🌽 Corn Leaf Blight reported in Midwest</div>
+        <div class="news-source"><i class="fas fa-rss"></i> USDA Pest Alert · 1 day ago</div>
+        <p style="margin-top: 8px; color: #2b4f2b;">Northern Corn Leaf Blight confirmed in 3 new counties. Resistant hybrids recommended for next planting season. Monitor fields for characteristic cigar-shaped lesions.</p>
+        <a href="chat.html?message=Corn%20Leaf%20Blight%20reported%20in%20Midwest" class="ask-chatbot-btn"><i class="fas fa-robot"></i> Ask Chatbot</a>
+      </div>
+
+      <div class="news-item">
+        <div class="news-title">🍇 Powdery Mildew outbreak - vineyards, Napa Valley</div>
+        <div class="news-source"><i class="fas fa-rss"></i> Viticulture News · 1 day ago</div>
+        <p style="margin-top: 8px; color: #2b4f2b;">Early season pressure high. Sulfur applications scheduled. Growers advised to maintain preventative spray programs and ensure good canopy management.</p>
+        <a href="chat.html?message=Powdery%20Mildew%20outbreak%20-%20vineyards%20Napa%20Valley" class="ask-chatbot-btn"><i class="fas fa-robot"></i> Ask Chatbot</a>
+      </div>
+
+      <div class="news-item">
+        <div class="news-title">🥔 Potato Early Blight Warning - Idaho growing regions</div>
+        <div class="news-source"><i class="fas fa-rss"></i> Potato Grower Alert · 2 days ago</div>
+        <p style="margin-top: 8px; color: #2b4f2b;">Warm, humid conditions increasing disease pressure. Rotate fungicide modes of action. Target lower canopy for best coverage.</p>
+        <a href="chat.html?message=Potato%20Early%20Blight%20Warning%20-%20Idaho%20growing%20regions" class="ask-chatbot-btn"><i class="fas fa-robot"></i> Ask Chatbot</a>
+      </div>
+
+      <div class="refresh-note" style="margin-top: 2rem; padding: 1rem; background: rgba(200, 220, 200, 0.5); border-radius: 30px; text-align: center;">
+        <i class="fas fa-sync-alt" style="margin-right: 6px;"></i> 
+        This bulletin updates daily via RSS feeds from plant pathology services.
+      </div>
+      
+      <!-- Test Button -->
+      <div style="margin-top: 2rem; text-align: center;">
+        <button onclick="alert('JavaScript is working!')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          Test JavaScript
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="text-align: right;">
+      <span data-i18n="footer-brand" style="font-weight: 600;">🌿 2026 AgroVision</span>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">AI-Powered Plant Health Detection</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

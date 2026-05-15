@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌿 AgroVision · Gallery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <i class="fas fa-leaf"></i>
+          <span>AgroVision</span>
+        </a>
+      </div>
+      
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav-home">Home</a>
+        <a href="predict.html" data-i18n="nav-predict">Predict Disease</a>
+        <a href="chat.html" data-i18n="nav-chat">Chat</a>
+        <a href="news.html" data-i18n="nav-news">News Bulletin</a>
+        <a href="gallery.html" data-i18n="nav-gallery">Gallery</a>
+        <a href="about.html" data-i18n="nav-about">About</a>
+        <a href="contact.html" data-i18n="nav-contact">Contact</a>
+        <div class="lang-switch">
+          <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">English</button>
+          <button class="lang-btn" id="lang-kn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+        </div>
+        <div class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()">
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1><i class="fas fa-images" style="color: var(--icon-color);"></i> Sample Leaf Library</h1>
+      <p>Browse our collection of healthy and diseased leaf samples</p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="leaf-grid">
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2018/01/17/04/14/leaf-3086419_640.jpg" alt="Healthy leaf" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Healthy <span class="confidence">98%</span>
+          </div>
+          <div class="leaf-desc">Vibrant green, no lesions. Typical healthy leaf.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2020/04/30/17/34/brown-spots-5114373_640.jpg" alt="Leaf spot disease" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Leaf spot <span class="confidence">87%</span>
+          </div>
+          <div class="leaf-desc">Dark lesions with yellow halo – fungal leaf spot.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2018/05/10/12/54/leaf-3387150_640.jpg" alt="Rust disease" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Rust <span class="confidence">92%</span>
+          </div>
+          <div class="leaf-desc">Pustules with orange/brown spores – rust fungus.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2020/05/24/00/03/leaf-5215191_640.jpg" alt="Powdery mildew" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Powdery mildew <span class="confidence">79%</span>
+          </div>
+          <div class="leaf-desc">White powdery patches on upper surface.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2017/07/18/13/37/nature-2516520_640.jpg" alt="Healthy leaf" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Healthy <span class="confidence">96%</span>
+          </div>
+          <div class="leaf-desc">Uniform colour, no spots or distortion.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2021/03/28/10/39/apple-leaves-6133181_640.jpg" alt="Leaf scab" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Leaf scab <span class="confidence">83%</span>
+          </div>
+          <div class="leaf-desc">Rough, dark lesions – common in fruit trees.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2018/05/28/22/45/potato-3436286_640.jpg" alt="Early blight" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Early blight <span class="confidence">89%</span>
+          </div>
+          <div class="leaf-desc">Concentric rings on lower leaves – fungal disease.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2017/08/06/18/56/leaf-2590505_640.jpg" alt="Bacterial leaf spot" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Bacterial spot <span class="confidence">91%</span>
+          </div>
+          <div class="leaf-desc">Water-soaked spots with yellow halo – bacterial infection.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2017/09/18/06/56/diseased-leaf-2760868_640.jpg" alt="Septoria leaf spot" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Septoria spot <span class="confidence">85%</span>
+          </div>
+          <div class="leaf-desc">Circular spots with dark border and grey centre.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2015/11/23/01/26/yellow-1058276_640.jpg" alt="Yellow leaf curl" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Yellow curl <span class="confidence">88%</span>
+          </div>
+          <div class="leaf-desc">Yellowing and upward leaf curling – viral infection.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2019/06/16/09/56/leaf-4277345_640.jpg" alt="Mosaic virus" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Mosaic virus <span class="confidence">86%</span>
+          </div>
+          <div class="leaf-desc">Mottled light and dark green patches – viral disease.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2016/11/29/11/42/leaf-1868715_640.jpg" alt="Anthracnose" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Anthracnose <span class="confidence">84%</span>
+          </div>
+          <div class="leaf-desc">Sunken lesions with concentric rings on veins.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2020/04/11/16/07/leaf-5030881_640.jpg" alt="Downy mildew" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Downy mildew <span class="confidence">80%</span>
+          </div>
+          <div class="leaf-desc">Angular spots with grey mold on undersides.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/leaf-2785345_640.jpg" alt="Cercospora leaf spot" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Cercospora spot <span class="confidence">82%</span>
+          </div>
+          <div class="leaf-desc">Brown spots with grey centres and dark borders.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2018/04/04/12/34/green-leaf-3290936_640.jpg" alt="Healthy leaf" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Healthy <span class="confidence">99%</span>
+          </div>
+          <div class="leaf-desc">Perfect condition with optimal structure and colour.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2019/03/25/19/54/leaf-4181788_640.jpg" alt="Botrytis blight" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Botrytis blight <span class="confidence">77%</span>
+          </div>
+          <div class="leaf-desc">Brown rot with grey spores – fungal mold infection.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2020/10/20/16/09/leaf-5674916_640.jpg" alt="Bacterial speck" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Bacterial speck <span class="confidence">81%</span>
+          </div>
+          <div class="leaf-desc">Dark spots with oil-soaked appearance on surface.</div>
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <img class="leaf-img" src="https://cdn.pixabay.com/photo/2018/08/13/16/51/leaf-3604839_640.jpg" alt="Alternaria disease" loading="lazy">
+        <div class="leaf-info">
+          <div class="leaf-name">
+            Alternaria <span class="confidence">90%</span>
+          </div>
+          <div class="leaf-desc">Concentric rings with target-like pattern appearance.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="text-align: right;">
+      <span data-i18n="footer-brand" style="font-weight: 600;">🌿 2026 AgroVision</span>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">AI-Powered Plant Health Detection</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

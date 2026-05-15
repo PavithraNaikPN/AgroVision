@@ -1,0 +1,84 @@
+[
+  {
+    "id": "corn_cercospora",
+    "folder": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+    "displayName": "Corn - Cercospora Leaf Spot (Gray Leaf Spot)",
+    "plant": "Corn (Maize)",
+    "condition": "Disease",
+    "diseaseName": "Cercospora Leaf Spot / Gray Leaf Spot",
+    "sampleImage": "00120a18-ff90-46e4-92fb-2b7a10345bd3___RS_GLSp 9357_270deg.JPG"
+  },
+  {
+    "id": "corn_common_rust",
+    "folder": "Corn_(maize)___Common_rust_",
+    "displayName": "Corn - Common Rust",
+    "plant": "Corn (Maize)",
+    "condition": "Disease",
+    "diseaseName": "Common Rust",
+    "sampleImage": "RS_Rust 1563.JPG"
+  },
+  {
+    "id": "corn_healthy",
+    "folder": "Corn_(maize)___healthy",
+    "displayName": "Corn - Healthy",
+    "plant": "Corn (Maize)",
+    "condition": "Healthy",
+    "diseaseName": "Healthy",
+    "sampleImage": "00031d74-076e-4aef-b040-e068cd3576eb___R.S_HL 8315 copy 2.jpg"
+  },
+  {
+    "id": "corn_northern_leaf_blight",
+    "folder": "Corn_(maize)___Northern_Leaf_Blight",
+    "displayName": "Corn - Northern Leaf Blight",
+    "plant": "Corn (Maize)",
+    "condition": "Disease",
+    "diseaseName": "Northern Leaf Blight",
+    "sampleImage": "005318c8-a5fa-4420-843b-23bdda7322c2___RS_NLB 3853 copy.jpg"
+  },
+  {
+    "id": "pepper_bacterial_spot",
+    "folder": "Pepper,_bell___Bacterial_spot",
+    "displayName": "Bell Pepper - Bacterial Spot",
+    "plant": "Bell Pepper",
+    "condition": "Disease",
+    "diseaseName": "Bacterial Spot",
+    "sampleImage": "0022d6b7-d47c-4ee2-ae9a-392a53f48647___JR_B.Spot 8964.JPG"
+  },
+  {
+    "id": "pepper_healthy",
+    "folder": "Pepper,_bell___healthy",
+    "displayName": "Bell Pepper - Healthy",
+    "plant": "Bell Pepper",
+    "condition": "Healthy",
+    "diseaseName": "Healthy",
+    "sampleImage": "00208a93-7687-4e8c-b79e-3138687e0f38___JR_HL 7955.JPG"
+  },
+  {
+    "id": "potato_early_blight",
+    "folder": "Potato___Early_blight",
+    "displayName": "Potato - Early Blight",
+    "plant": "Potato",
+    "condition": "Disease",
+    "diseaseName": "Early Blight",
+    "sampleImage": "001187a0-57ab-4329-baff-e7246a9edeb0___RS_Early.B 8178.JPG"
+  },
+  {
+    "id": "potato_healthy",
+    "folder": "Potato___healthy",
+    "displayName": "Potato - Healthy",
+    "plant": "Potato",
+    "condition": "Healthy",
+    "diseaseName": "Healthy",
+    "sampleImage": "00fc2ee5-729f-4757-8aeb-65c3355874f2___RS_HL 1864.JPG"
+  },
+  {
+    "id": "tomato_gray_leaf_spot",
+    "folder": "Tomato___Gray_leaf_spot",
+    "displayName": "Tomato - Gray Leaf Spot",
+    "plant": "Tomato",
+    "condition": "Disease",
+    "diseaseName": "Gray Leaf Spot",
+    "sampleImage": "sample_tomato_gls.jpg"
+  }
+]
+

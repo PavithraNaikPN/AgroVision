@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🌿 AgroVision · Chat</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <div class="container">
+
+    <nav class="navbar">
+
+      <div class="logo">
+
+        <a href="index.html">
+
+          <i class="fas fa-leaf"></i>
+
+<span>AgroVision</span>
+
+        </a>
+
+      </div>
+
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+
+        <span></span>
+
+        <span></span>
+
+        <span></span>
+
+      </button>
+
+      <div class="nav-links" id="navLinks">
+
+        <a href="index.html" data-i18n="nav-home">Home</a>
+
+        <a href="predict.html" data-i18n="nav-predict">Predict Disease</a>
+        
+        <a href="chat.html" data-i18n="nav-chat">Chat</a>
+
+        <a href="news.html" data-i18n="nav-news">News Bulletin</a>
+
+        <a href="gallery.html" data-i18n="nav-gallery">Gallery</a>
+
+        <a href="about.html" data-i18n="nav-about">About</a>
+
+        <a href="contact.html" data-i18n="nav-contact">Contact</a>
+
+        <div class="lang-switch">
+
+          <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">English</button>
+
+          <button class="lang-btn" id="lang-kn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+
+        </div>
+
+        <div class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()">
+
+          <i class="fas fa-moon"></i>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+
+
+    <section class="chat-section">
+
+      <div class="chat-card">
+
+        <div class="chat-header">
+
+          <div>
+
+            <h1>Krishi Mitra</h1>
+
+            <p>Ask AgroVision about plant care, crop diseases, or farming tips.</p>
+
+          </div>
+
+          <div class="chat-badge">Open AI powered</div>
+
+        </div>
+
+
+
+        <div id="chatMessages" class="chat-messages"></div>
+
+
+
+        <form id="chatForm" class="chat-form" onsubmit="return false;">
+
+          <input type="text" id="chatInput" class="chat-input" placeholder="Type your message here..." autocomplete="off" required>
+
+          <button type="button" class="chat-send-btn" id="chatSendBtn"><i class="fas fa-paper-plane"></i> Send</button>
+
+        </form>
+
+
+
+        <p class="chat-info">Use the chat as a helper for plant diseases, farming advice, and AgroVision features.</p>
+
+      </div>
+
+    </section>
+
+
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="text-align: right;">
+      <span data-i18n="footer-brand" style="font-weight: 600;">🌿 2026 AgroVision</span>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">AI-Powered Plant Health Detection</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .download-pdf-btn {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+    
+    .download-pdf-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
+    
+    .download-pdf-btn i {
+      margin-right: 5px;
+    }
+    
+    .assistant-text {
+      margin-bottom: 15px;
+    }
+
+    /* Medicine Kit Styles */
+    .medicine-kits-container {
+      margin-top: 15px;
+    }
+
+    .medicine-kits-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2d5016;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .medicine-kit-card {
+      background: linear-gradient(135deg, #f5f9f0 0%, #e8f5e9 100%);
+      border-left: 5px solid #27ae60;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      box-shadow: 0 2px 8px rgba(39, 174, 96, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .medicine-kit-card:hover {
+      transform: translateX(3px);
+      box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
+    }
+
+    .kit-image-wrap {
+      width: 100%;
+      height: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 2px solid #e0e0e0;
+      background: #f5f5f5;
+    }
+
+    .kit-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .kit-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .kit-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #27ae60;
+      margin: 0;
+    }
+
+    .kit-description {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .kit-medicines {
+      margin: 10px 0;
+      font-size: 0.85rem;
+    }
+
+    .medicine-item {
+      background: white;
+      padding: 8px 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border-left: 3px solid #52c41a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .medicine-image-wrap {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #e0e0e0;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .medicine-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .medicine-name {
+      font-weight: 500;
+      color: #333;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .medicine-price {
+      color: #27ae60;
+      font-weight: 600;
+      min-width: 60px;
+    }
+
+    .medicine-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .shop-btn {
+      padding: 4px 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .amazon-btn {
+      background: #FF9900;
+      color: white;
+    }
+
+    .amazon-btn:hover {
+      background: #E68900;
+      transform: translateY(-1px);
+    }
+
+    .flipkart-btn {
+      background: #1F51BA;
+      color: white;
+    }
+
+    .flipkart-btn:hover {
+      background: #17408C;
+      transform: translateY(-1px);
+    }
+
+    .kit-pricing {
+      display: flex;
+      gap: 15px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .price-tag {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      border: 1px solid #e0e0e0;
+    }
+
+    .price-label {
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    .price-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #27ae60;
+    }
+
+    .discount-badge {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .final-price {
+      background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .kit-footer {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .kit-btn {
+      flex: 1;
+      min-width: 150px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .download-kit-btn {
+      background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    }
+
+    .download-kit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(39, 174, 96, 0.4);
+    }
+
+    .view-details-btn {
+      background: white;
+      color: #27ae60;
+      border: 2px solid #27ae60;
+      box-shadow: 0 2px 8px rgba(39, 174, 96, 0.1);
+    }
+
+    .view-details-btn:hover {
+      background: #f0f8f4;
+    }
+
+    .kit-instructions {
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #555;
+      border-left: 3px solid #ffc107;
+    }
+
+    .kit-coverage {
+      background: #fff3cd;
+      padding: 8px 10px;
+      border-radius: 5px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #856404;
+      border-left: 3px solid #ffc107;
+    }
+
+    .no-kits-message {
+      background: #f5f5f5;
+      padding: 12px;
+      border-radius: 5px;
+      color: #888;
+      font-size: 0.9rem;
+      text-align: center;
+      margin: 10px 0;
+    }
+  </style>
+  <script src="main.js"></script>
+
+  <script>
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+
+function appendMessage(text, role, kits = null) {
+      const messageElem = document.createElement('div');
+      messageElem.className = `chat-message ${role}`;
+
+      if (role === 'assistant') {
+        const textContainer = document.createElement('div');
+        textContainer.className = 'assistant-text';
+        textContainer.textContent = text;
+        messageElem.appendChild(textContainer);
+
+        // Add medicine kits if available
+        if (kits && kits.length > 0) {
+          const kitsContainer = createMedicineKitsUI(kits);
+          messageElem.appendChild(kitsContainer);
+        }
+
+        // Only add download button if it's not "Thinking..." message
+        if (text !== 'Thinking... 🤖' && text !== 'Unable to connect to chat server. Please make sure the backend is running.') {
+          const downloadBtn = document.createElement('button');
+          downloadBtn.className = 'download-pdf-btn';
+          downloadBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download PDF';
+          downloadBtn.onclick = () => generateStyledPDF(text, messageElem);
+          messageElem.appendChild(downloadBtn);
+        }
+      } else {
+        messageElem.textContent = text;
+      }
+
+      chatMessages.appendChild(messageElem);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return messageElem;
+    }
+
+    function createMedicineKitsUI(kits) {
+      const container = document.createElement('div');
+      container.className = 'medicine-kits-container';
+
+      const title = document.createElement('div');
+      title.className = 'medicine-kits-title';
+      title.innerHTML = '<i class="fas fa-capsules"></i> Recommended Medicine Kits:';
+      container.appendChild(title);
+
+      if (kits.length === 0) {
+        const noKits = document.createElement('div');
+        noKits.className = 'no-kits-message';
+        noKits.textContent = 'No specific medicine kits available for this condition.';
+        container.appendChild(noKits);
+        return container;
+      }
+
+      kits.forEach(kit => {
+        const kitCard = document.createElement('div');
+        kitCard.className = 'medicine-kit-card';
+
+        // Kit Image
+        if (kit.image) {
+          const kitImgWrap = document.createElement('div');
+          kitImgWrap.className = 'kit-image-wrap';
+          const kitImg = document.createElement('img');
+          kitImg.className = 'kit-image';
+          kitImg.src = kit.image;
+          kitImg.alt = kit.name;
+          kitImgWrap.appendChild(kitImg);
+          kitCard.appendChild(kitImgWrap);
+        }
+
+        // Kit Header
+        const header = document.createElement('div');
+        header.className = 'kit-header';
+        
+        const name = document.createElement('h3');
+        name.className = 'kit-name';
+        name.textContent = kit.name;
+        header.appendChild(name);
+
+        kitCard.appendChild(header);
+
+        // Description
+        const desc = document.createElement('p');
+        desc.className = 'kit-description';
+        desc.textContent = kit.description;
+        kitCard.appendChild(desc);
+
+        // Medicines List
+        const medicinesDiv = document.createElement('div');
+        medicinesDiv.className = 'kit-medicines';
+        
+        const medicinesLabel = document.createElement('strong');
+        medicinesLabel.textContent = 'Medicines Included:';
+        medicinesDiv.appendChild(medicinesLabel);
+
+        kit.medicines.forEach(medicine => {
+          const medicineItem = document.createElement('div');
+          medicineItem.className = 'medicine-item';
+
+          // Medicine Image
+          if (medicine.image) {
+            const imgWrap = document.createElement('div');
+            imgWrap.className = 'medicine-image-wrap';
+            const img = document.createElement('img');
+            img.className = 'medicine-image';
+            img.src = medicine.image;
+            img.alt = medicine.name;
+            imgWrap.appendChild(img);
+            medicineItem.appendChild(imgWrap);
+          }
+          
+          const medicineInfo = document.createElement('div');
+          medicineInfo.style.flex = '1';
+          medicineInfo.innerHTML = `<span class="medicine-name">${medicine.name}</span><br><small style="color: #888;">${medicine.quantity} - ${medicine.use}</small>`;
+          medicineItem.appendChild(medicineInfo);
+
+          // Add shopping links
+          const links = document.createElement('div');
+          links.className = 'medicine-links';
+
+          if (medicine.amazonLink) {
+            const amazonBtn = document.createElement('a');
+            amazonBtn.className = 'shop-btn amazon-btn';
+            amazonBtn.href = medicine.amazonLink;
+            amazonBtn.target = '_blank';
+            amazonBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Amazon';
+            links.appendChild(amazonBtn);
+          }
+
+          if (medicine.flipkartLink) {
+            const flipkartBtn = document.createElement('a');
+            flipkartBtn.className = 'shop-btn flipkart-btn';
+            flipkartBtn.href = medicine.flipkartLink;
+            flipkartBtn.target = '_blank';
+            flipkartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Flipkart';
+            links.appendChild(flipkartBtn);
+          }
+
+          medicineItem.appendChild(links);
+          medicinesDiv.appendChild(medicineItem);
+        });
+
+        kitCard.appendChild(medicinesDiv);
+
+        // Instructions
+        const instructions = document.createElement('div');
+        instructions.className = 'kit-instructions';
+        instructions.innerHTML = `<strong>📋 Instructions:</strong><br>${kit.instructions}`;
+        kitCard.appendChild(instructions);
+
+        // Coverage
+        const coverage = document.createElement('div');
+        coverage.className = 'kit-coverage';
+        coverage.innerHTML = `<strong>📍 Coverage:</strong> ${kit.coverage}`;
+        kitCard.appendChild(coverage);
+
+        // Footer Buttons
+        const footer = document.createElement('div');
+        footer.className = 'kit-footer';
+
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'kit-btn download-kit-btn';
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Kit';
+        downloadBtn.onclick = () => downloadKitPDF(kit);
+        footer.appendChild(downloadBtn);
+
+        const viewBtn = document.createElement('button');
+        viewBtn.className = 'kit-btn view-details-btn';
+        viewBtn.innerHTML = '<i class="fas fa-info-circle"></i> View Details';
+        viewBtn.onclick = () => showKitDetails(kit);
+        footer.appendChild(viewBtn);
+
+        kitCard.appendChild(footer);
+
+        container.appendChild(kitCard);
+      });
+
+      return container;
+    }
+
+    function downloadKitPDF(kit) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+      
+      // Set background color
+      doc.setFillColor(245, 250, 245);
+      doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
+      
+      // Add header
+      doc.setDrawColor(39, 174, 96);
+      doc.setLineWidth(3);
+      doc.rect(10, 10, doc.internal.pageSize.getWidth() - 20, 60, 'S');
+      
+      doc.setTextColor(39, 174, 96);
+      doc.setFontSize(24);
+      doc.setFont('helvetica', 'bold');
+      doc.text(kit.name, 20, 40);
+      
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(80, 80, 80);
+      doc.text(kit.description, 20, 55);
+      
+      let yPos = 85;
+      doc.setTextColor(0, 0, 0);
+      
+      // Medicines Section
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(39, 174, 96);
+      doc.text('Medicines Included:', 20, yPos);
+      yPos += 20;
+      
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      
+      kit.medicines.forEach((medicine, index) => {
+        if (yPos > doc.internal.pageSize.getHeight() - 40) {
+          doc.addPage();
+          doc.setFillColor(245, 250, 245);
+          doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
+          yPos = 20;
+        }
+        
+        doc.text(`${index + 1}. ${medicine.name}`, 25, yPos);
+        yPos += 12;
+        doc.setFontSize(10);
+        doc.text(`   Quantity: ${medicine.quantity} | Dosage: ${medicine.dosage}`, 30, yPos);
+        yPos += 10;
+        doc.setFontSize(11);
+      });
+      
+      yPos += 10;
+      
+      // Instructions Section
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(39, 174, 96);
+      doc.text('Application Instructions:', 20, yPos);
+      yPos += 15;
+      
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      const instructionLines = doc.splitTextToSize(kit.instructions, doc.internal.pageSize.getWidth() - 50);
+      instructionLines.forEach(line => {
+        if (yPos > doc.internal.pageSize.getHeight() - 40) {
+          doc.addPage();
+          yPos = 20;
+        }
+        doc.text(line, 25, yPos);
+        yPos += 12;
+      });
+      
+      yPos += 5;
+      
+      // Coverage Section
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(39, 174, 96);
+      doc.text('Coverage:', 20, yPos);
+      yPos += 12;
+      
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      doc.text(kit.coverage, 25, yPos);
+      
+      // Save PDF
+      doc.save(`AgroVision-medicine-kit-${kit.id}-${Date.now()}.pdf`);
+      
+      // Show success toast
+      showToast('Medicine kit PDF downloaded successfully!', 'success');
+    }
+
+    function showKitDetails(kit) {
+      alert(`Kit: ${kit.name}\n\nCrops: ${kit.applicableCrops.join(', ')}\n\nDiseases: ${kit.diseases.join(', ')}\n\nTotal Medicines: ${kit.medicines.length}`);
+    }
+
+    async function sendMessage(message) {
+      console.log('Sending message:', message);
+      appendMessage(message, 'user');
+      appendMessage('Thinking... 🤖', 'assistant');
+
+      try {
+        console.log('Fetching from /api/chat...');
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
+        });
+
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('API result:', result);
+        
+        const assistantMessage = result.reply || result.error || 'No response received.';
+        const medicineKits = result.medicineKits || [];
+
+        const pending = chatMessages.querySelector('.chat-message.assistant:last-child');
+        if (pending) {
+          pending.remove();
+          appendMessage(assistantMessage, 'assistant', medicineKits);
+        }
+      } catch (error) {
+        console.error('Chat error:', error);
+        const pending = chatMessages.querySelector('.chat-message.assistant:last-child');
+        if (pending) {
+          pending.remove();
+          appendMessage('Unable to connect to the chat server. Please make sure the Node.js server is running on port 3000.', 'assistant');
+        }
+      }
+    }
+
+    function generateStyledPDF(text, messageElement) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+      
+      // Set background color
+      doc.setFillColor(245, 245, 220); // Light beige background
+      doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
+      
+      // Add header with border
+      doc.setDrawColor(34, 139, 34); // Dark green border
+      doc.setLineWidth(2);
+      doc.rect(10, 10, doc.internal.pageSize.getWidth() - 20, 50, 'S');
+      
+      // Header text
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(24);
+      doc.setFont('helvetica', 'bold');
+      doc.text('AgroVision Agricultural Report', 20, 35);
+      
+      // Subtitle
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'normal');
+      doc.text('AI-Powered Plant Disease Analysis', 20, 50);
+      
+      // Date and time
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(12);
+      doc.text(`Generated: ${new Date().toLocaleString()}`, 20, 65);
+      
+      // Separator line
+      doc.setDrawColor(34, 139, 34);
+      doc.setLineWidth(2);
+      doc.line(20, 80, doc.internal.pageSize.getWidth() - 20, 80);
+      
+      // Content area with light background
+      doc.setFillColor(255, 255, 255);
+      doc.rect(20, 90, doc.internal.pageSize.getWidth() - 40, doc.internal.pageSize.getHeight() - 120, 'F');
+      
+      // Response content
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(12);
+      const lines = doc.splitTextToSize(text, doc.internal.pageSize.getWidth() - 60);
+      let yPosition = 105;
+      
+      lines.forEach(line => {
+        if (yPosition > doc.internal.pageSize.getHeight() - 40) {
+          doc.addPage();
+          // Add header to new page
+          doc.setFillColor(245, 245, 220);
+          doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
+          doc.setDrawColor(34, 139, 34);
+          doc.setLineWidth(2);
+          doc.rect(10, 10, doc.internal.pageSize.getWidth() - 20, 50, 'S');
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(24);
+          doc.setFont('helvetica', 'bold');
+          doc.text('AgroVision Agricultural Report (Cont.)', 20, 35);
+          doc.setFontSize(14);
+          doc.setFont('helvetica', 'normal');
+          doc.text('AI-Powered Plant Disease Analysis', 20, 50);
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+          doc.text(`Generated: ${new Date().toLocaleString()}`, 20, 65);
+          doc.setDrawColor(34, 139, 34);
+          doc.setLineWidth(2);
+          doc.line(20, 80, doc.internal.pageSize.getWidth() - 20, 80);
+          doc.setFillColor(255, 255, 255);
+          doc.rect(20, 90, doc.internal.pageSize.getWidth() - 40, doc.internal.pageSize.getHeight() - 120, 'F');
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+          yPosition = 105;
+        }
+        doc.text(line, 25, yPosition);
+        yPosition += 18;
+      });
+      
+      // Footer with border
+      doc.setDrawColor(34, 139, 34);
+      doc.setLineWidth(2);
+      doc.rect(10, doc.internal.pageSize.getHeight() - 30, doc.internal.pageSize.getWidth() - 20, 25, 'S');
+      
+      // Footer text
+      doc.setTextColor(100, 100, 100);
+      doc.setFontSize(10);
+      doc.text('This report was generated by AgroVision AI Agricultural Assistant', 20, doc.internal.pageSize.getHeight() - 20);
+      doc.text('For more information, visit: http://localhost:3000', 20, doc.internal.pageSize.getHeight() - 10);
+      
+      // Save PDF
+      doc.save(`AgroVision-report-${Date.now()}.pdf`);
+    }
+
+    chatForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      return false;
+    });
+
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    console.log('Send button found:', chatSendBtn);
+    
+    if (chatSendBtn) {
+      chatSendBtn.addEventListener('click', () => {
+        console.log('Send button clicked!');
+        const message = chatInput.value.trim();
+        console.log('Message:', message);
+        if (!message) {
+          console.log('No message to send');
+          return;
+        }
+        chatInput.value = '';
+        sendMessage(message);
+      });
+    } else {
+      console.error('Send button not found!');
+    }
+
+    // Allow Enter key to send message
+    chatInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const message = chatInput.value.trim();
+        if (!message) return;
+        chatInput.value = '';
+        sendMessage(message);
+      }
+    });
+
+// Auto-fill and submit message from URL parameter or sessionStorage
+    (function handleIncomingMessage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlMessage = urlParams.get('message');
+      const sessionMessage = sessionStorage.getItem('chatMessage');
+      const incomingMessage = urlMessage || sessionMessage;
+
+      if (incomingMessage) {
+        chatInput.value = decodeURIComponent(incomingMessage);
+        sessionStorage.removeItem('chatMessage');
+        // Clear the URL parameter without reloading
+        if (urlMessage) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        // Auto-send the message
+        setTimeout(() => sendMessage(chatInput.value), 300);
+      }
+    })();
+</script>
+
+</body>
+
+</html>

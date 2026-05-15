@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌿 AgroVision · Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <!-- Header - Fixed Position -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <i class="fas fa-leaf"></i>
+        <span>AgroVision</span>
+      </a>
+    </div>
+    
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav-home">Home</a>
+      <a href="predict.html" data-i18n="nav-predict">Predict Disease</a>
+      <a href="chat.html" data-i18n="nav-chat">Chat</a>
+      <a href="news.html" data-i18n="nav-news">News Bulletin</a>
+      <a href="gallery.html" data-i18n="nav-gallery">Gallery</a>
+      <a href="about.html" data-i18n="nav-about">About</a>
+      <a href="contact.html" data-i18n="nav-contact">Contact</a>
+      <div class="lang-switch">
+        <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">English</button>
+        <button class="lang-btn" id="lang-kn" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+      </div>
+      <div class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: 80px;">
+    <!-- Introduction Section -->
+    <section class="intro-section">
+      <div class="intro-content-wrapper">
+        <div class="intro-content">
+          <span class="intro-badge">
+            <i class="fas fa-leaf"></i> AI-Powered Leaf Health
+          </span>
+        <h1>
+          Protect Your Crops with
+          <span class="intro-highlight">Intelligent</span>
+          Disease Detection
+        </h1>
+        <p class="intro-description">
+          Upload a leaf photo and get instant AI analysis. Identify diseases early, save your harvest, and grow healthier plants with confidence.
+        </p>
+        <div class="intro-stats">
+          <div class="stat-item">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Leaf Diseases</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">96%</span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Available</span>
+          </div>
+        </div>
+        <div class="intro-cta">
+          <a href="predict.html" class="cta-primary">
+            <i class="fas fa-cloud-upload-alt"></i> Start Diagnosis
+          </a>
+          <a href="gallery.html" class="cta-secondary">
+            <i class="fas fa-images"></i> View Gallery
+          </a>
+        </div>
+      </div>
+      <div class="intro-visual">
+        <div class="leaf-circle">
+          <i class="fas fa-seedling"></i>
+          <span class="floating-leaf-1">🍃</span>
+          <span class="floating-leaf-2">🌿</span>
+          <span class="floating-leaf-3">🍂</span>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- Features Overview -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0;">
+      <div style="background: linear-gradient(135deg, var(--card-bg), rgba(139, 195, 74, 0.05)); backdrop-filter: blur(12px); border-radius: 28px; padding: 2rem; text-align: center; border: 1px solid var(--card-border); transition: all 0.3s; animation: cardAppear 0.6s ease forwards 0.1s;" onmouseover="this.style.transform='translateY(-10px) scale(1.03)'; this.style.boxShadow='0 20px 40px rgba(43, 122, 43, 0.2)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'">
+        <i class="fas fa-search" style="font-size: 3rem; color: var(--icon-color); margin-bottom: 1rem; animation: iconSway 2s infinite ease-in-out;"></i>
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Instant Analysis</h3>
+        <p style="color: var(--text-secondary);">Get disease detection results in seconds with our AI-powered system.</p>
+      </div>
+      <div style="background: var(--card-bg); backdrop-filter: blur(12px); border-radius: 28px; padding: 2rem; text-align: center; border: 1px solid var(--card-border);">
+        <i class="fas fa-database" style="font-size: 3rem; color: var(--icon-color); margin-bottom: 1rem;"></i>
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Extensive Database</h3>
+        <p style="color: var(--text-secondary);">Access information on 50+ plant diseases across multiple crop varieties.</p>
+      </div>
+      <div style="background: var(--card-bg); backdrop-filter: blur(12px); border-radius: 28px; padding: 2rem; text-align: center; border: 1px solid var(--card-border);">
+        <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--icon-color); margin-bottom: 1rem;"></i>
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Daily Updates</h3>
+        <p style="color: var(--text-secondary);">Stay informed with our daily disease bulletin and outbreak alerts.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="text-align: right;">
+      <span data-i18n="footer-brand" style="font-weight: 600;">🌿 2026 AgroVision</span>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">AI-Powered Plant Health Detection</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

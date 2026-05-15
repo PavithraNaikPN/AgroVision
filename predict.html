@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ðŸŒ¿ AgroVision Â· Predict Disease</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+  
+  <!-- Header - Fixed Position -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <i class="fas fa-leaf"></i>
+        <span>AgroVision</span>
+      </a>
+    </div>
+    
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav-home">Home</a>
+      <a href="predict.html" data-i18n="nav-predict">Predict Disease</a>
+      <a href="chat.html" data-i18n="nav-chat">Chat</a>
+      <a href="news.html" data-i18n="nav-news">News Bulletin</a>
+      <a href="gallery.html" data-i18n="nav-gallery">Gallery</a>
+      <a href="about.html" data-i18n="nav-about">About</a>
+      <a href="contact.html" data-i18n="nav-contact">Contact</a>
+      <div class="lang-switch">
+        <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">English</button>
+        <button class="lang-btn" id="lang-kn" onclick="setLanguage('kn')">à²•à²¨à³à²¨à²¡</button>
+      </div>
+      <div class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1><i class="fas fa-search" style="color: var(--icon-color);"></i> Predict Plant Disease</h1>
+      <p>Upload a leaf image for AI-powered disease detection</p>
+    </div>
+
+    <!-- Model Status -->
+    <div id="modelStatus" style="text-align: center; margin: 1rem 0; font-size: 0.9rem; color: var(--text-secondary);">
+      <span class="status-indicator"><i class="fas fa-circle-notch fa-spin"></i> Checking model status...</span>
+    </div>
+
+    <!-- Upload Card -->
+    <div class="upload-card">
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('leafImageInput').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <h3>Drop your leaf image</h3>
+        <p>or click to browse (JPG, PNG, JPEG)</p>
+        <input type="file" id="leafImageInput" accept="image/*" capture="environment" hidden onchange="handleImageSelect(event)">
+        <button class="upload-btn" onclick="event.stopPropagation(); document.getElementById('leafImageInput').click();">
+          <i class="fas fa-search"></i> Select Image
+        </button>
+        <button class="upload-btn" style="margin-left: 0.75rem;" onclick="event.stopPropagation(); startCamera();">
+          <i class="fas fa-camera"></i> Capture Image
+        </button>
+      </div>
+      <div id="imagePreviewContainer" style="display: none; margin-top: 1.5rem;">
+        <img id="imagePreview" class="image-preview" src="#" alt="Preview">
+        <button class="upload-btn" onclick="analyzeImage()">
+          <i class="fas fa-flask"></i> Analyze Disease
+        </button>
+      </div>
+      <div id="analysisResult" style="display: none; margin-top: 1.5rem;"></div>
+
+    <div id="cameraOverlay" style="display: none; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 9999; padding: 1rem;">
+      <div style="background: #0f2617; border-radius: 18px; width: min(560px,100%); max-height: calc(100vh - 2rem); padding: 1rem; box-shadow: 0 20px 50px rgba(0,0,0,0.45); display: flex; flex-direction: column; gap: 0.75rem; overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+          <h2 style="margin:0; font-size: 1.1rem; color: #fff;">Capture Leaf Image</h2>
+          <button id="closeCameraBtn" onclick="closeCamera()" style="background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">×</button>
+        </div>
+        <video id="cameraVideo" autoplay muted playsinline style="width: 100%; border-radius: 16px; background: #000;"></video>
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+          <button class="upload-btn" style="flex: 1;" onclick="closeCamera()">Cancel</button>
+          <button class="upload-btn" id="takePhotoBtn" style="flex: 1;" onclick="capturePhoto()">Take Photo</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="attribution">
+      <i class="fas fa-camera"></i> 
+      <span data-i18n="footer-attribution">leaf photos from <a href="https://unsplash.com" target="_blank">Unsplash</a> (demo use)</span>
+    </div>
+    <div style="display: flex; gap: 1.5rem; align-items: center;">
+      ðŸŒ± <a href="about.html" data-i18n="footer-about">about</a> Â· <a href="contact.html" data-i18n="footer-contact">contact</a>
+    </div>
+    <div style="text-align: right;">
+      <span data-i18n="footer-brand" style="font-weight: 600;">ðŸŒ¿ 2026 AgroVision</span>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">AI-Powered Plant Health Detection</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const FLASK_API = 'http://localhost:5000';
+    const NODE_API = '/api';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await checkModelStatus();
+      setupDragDrop();
+    });
+
+    async function checkModelStatus() {
+      const statusDiv = document.getElementById('modelStatus');
+      try {
+        const response = await fetch(`${FLASK_API}/api/model/info`);
+        const data = await response.json();
+        if (data.success && data.status === 'ready') {
+          statusDiv.innerHTML = `<span style="color: #28a745;"><i class="fas fa-check-circle"></i> Model Ready</span>`;
+        } else {
+          statusDiv.innerHTML = `<span style="color: #dc3545;"><i class="fas fa-exclamation-triangle"></i> Model unavailable</span>`;
+        }
+      } catch (error) {
+        statusDiv.innerHTML = `<span style="color: #ffc107;"><i class="fas fa-exclamation-triangle"></i> Flask not running</span>`;
+      }
+    }
+
+    async function analyzeImage() {
+      const resultDiv = document.getElementById('analysisResult');
+      const fileInput = document.getElementById('leafImageInput');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showToast('Please select an image first.', 'error');
+        return;
+      }
+
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = '<div class="loader"></div><p style="margin-top: 1rem;">ðŸ¤– Analyzing...</p>';
+
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        let response;
+        try {
+          response = await fetch(`${FLASK_API}/api/predict/image`, {
+            method: 'POST',
+            body: formData
+          });
+        } catch (e) {
+          response = await fetch(`${NODE_API}/classify-image`, {
+            method: 'POST',
+            body: formData
+          });
+        }
+
+        const result = await response.json();
+
+        if (result.success || result.classification) {
+          if (result.prediction) {
+            const pred = result.prediction;
+            const datasetMatch = result.dataset_info?.matched_class;
+            
+            const cropName = datasetMatch ? datasetMatch.plant : 'Unknown';
+            const diseaseName = datasetMatch ? datasetMatch.diseaseName : pred.display_name;
+            const chatQuery1 = encodeURIComponent(`Tell me about ${cropName} ${diseaseName}`);
+            
+            resultDiv.innerHTML = `
+              <div class="analysis-result" style="
+                background: linear-gradient(135deg, rgba(34, 139, 34, 0.1), rgba(76, 175, 80, 0.1));
+                padding: 2rem;
+                border-radius: 20px;
+                border-left: 5px solid var(--primary-color);
+                text-align: center;
+              ">
+                <p style="font-size: 1.1rem; margin: 0.5rem 0;"><strong>Crop Name:</strong> ${cropName}</p>
+                <p style="font-size: 1.1rem; margin: 0.5rem 0;"><strong>Disease:</strong> ${diseaseName}</p>
+                <p style="font-size: 1.1rem; margin: 0.5rem 0;">
+                  <strong>Confidence:</strong> 
+                  <span style="color: var(--primary-color); font-size: 1.3em; font-weight: 700;">${(pred.confidence * 100).toFixed(2)}%</span>
+                </p>
+                <a href="chat.html?message=${chatQuery1}" class="ask-chatbot-btn" style="margin-top: 1rem; display: inline-block;"><i class="fas fa-robot"></i> Ask Chatbot</a>
+              </div>
+            `;
+          } else if (result.classification) {
+            const classif = result.classification;
+            const cName = classif.matchedClass?.plant || 'Unknown';
+            const dName = classif.matchedClass?.diseaseName || 'Unknown';
+            const chatQuery2 = encodeURIComponent(`Tell me about ${cName} ${dName}`);
+            resultDiv.innerHTML = `
+              <div class="analysis-result" style="text-align: center; padding: 2rem;">
+                <p style="font-size: 1.1rem; margin: 0.5rem 0;"><strong>Crop Name:</strong> ${cName}</p>
+                <p style="font-size: 1.1rem; margin: 0.5rem 0;"><strong>Disease:</strong> ${dName}</p>
+                <p style="font-size: 1.1rem; margin: 0.5rem 0;"><strong>Confidence:</strong> ${(classif.confidence * 100).toFixed(2)}%</p>
+                <a href="chat.html?message=${chatQuery2}" class="ask-chatbot-btn" style="margin-top: 1rem; display: inline-block;"><i class="fas fa-robot"></i> Ask Chatbot</a>
+              </div>
+            `;
+          }
+        } else {
+          resultDiv.innerHTML = '<p style="color: #d32f2f;">âŒ Analysis failed: ' + (result.error || 'Unknown error') + '</p>';
+        }
+      } catch (error) {
+        resultDiv.innerHTML = '<p style="color: #d32f2f;">âŒ Connection error</p>';
+      }
+    }
+
+    function setupDragDrop() {
+      const uploadArea = document.getElementById('uploadArea');
+      if (!uploadArea) return;
+      
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, (e) => e.preventDefault());
+      });
+      
+      uploadArea.addEventListener('dragenter', () => {
+        uploadArea.style.borderColor = 'var(--primary-color)';
+        uploadArea.style.background = 'rgba(34,139,34,0.05)';
+      });
+      
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.style.borderColor = '';
+        uploadArea.style.background = '';
+      });
+      
+      uploadArea.addEventListener('drop', (e) => {
+        uploadArea.style.borderColor = '';
+        uploadArea.style.background = '';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          document.getElementById('leafImageInput').files = files;
+          handleImageSelect({ target: { files: files } });
+        }
+      });
+    }
+
+    function handleImageSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('imagePreview').src = e.target.result;
+          document.getElementById('imagePreviewContainer').style.display = 'block';
+          document.getElementById('analysisResult').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function askChatbotPrediction(cropName, diseaseName) {
+      const message = `I detected ${cropName} with ${diseaseName}. Can you provide treatment recommendations?`;
+      sessionStorage.setItem('chatMessage', message);
+      window.location.href = 'chat.html';
+    }
+  </script>
+</body>
+</html>
+
+
